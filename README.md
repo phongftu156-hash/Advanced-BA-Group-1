@@ -13,14 +13,15 @@ The platform has three engines, trained on public listings and open map data:
 
 | File | What it is |
 |---|---|
-| Final report (Word) | Maintained separately in Microsoft Word; not included in this repository |
-| Presentation (Canva) | Maintained separately in Canva; not included in this repository |
+| [Final report PDF](report/%5BABA%5D%20Final%20Report.pdf) | Report authored in Microsoft Word and exported as PDF |
+| [Presentation PDF](report/Group%201.pptx.pdf) | Slide deck authored in Canva and exported as PDF |
 | `dashboard/vietnam_avm_dashboard.html` | Standalone dashboard: open by double-click; valuations run in the browser |
 | `code/app.py` | Streamlit version of the dashboard |
 | `data/`, `result/` | Raw and processed data, figures, tables and trained models |
 
-The analytical pipeline produces data, models, figures and result summaries for use in the Word report
-and Canva presentation. It does not build or update those documents automatically.
+The submitted PDF exports are included in `report/`. The editable report is maintained in Microsoft Word
+and the editable presentation in Canva. The analytical pipeline produces data, models, figures and result
+summaries for those documents; it does not build or update them automatically.
 
 ## Results summary
 
@@ -79,6 +80,7 @@ Advanced BA/
   result/tables/       CSV tables behind every exhibit and number
   result/models/       trained models and lookups used by app.py and the HTML dashboard
   dashboard/           vietnam_avm_dashboard.html (standalone browser dashboard)
+  report/              [ABA] Final Report.pdf, Group 1.pptx.pdf (submitted PDF exports)
 ```
 
 ## Recreate the environment (Windows)
