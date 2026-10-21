@@ -1,7 +1,7 @@
 """Module 1: hedonic AVM (OLS specification ladder) and XGBoost AVM.
 
 Outputs (result/):
-  tables/hedonic_ladder.tex/.csv     specification ladder (clustered SE by district)
+  tables/hedonic_ladder.csv          specification ladder (clustered SE by district)
   tables/avm_metrics.csv             OLS(4) vs XGBoost on the test set, overall
   tables/avm_metrics_by_segment.csv  same by city x type
   tables/conformal_coverage.csv      90% split-conformal interval coverage
@@ -125,41 +125,7 @@ def ladder(df):
         coef.append(r)
     coef = pd.DataFrame(coef)
     coef.to_csv(TAB / "hedonic_ladder.csv", index=False, encoding="utf-8-sig")
-    write_ladder_tex(coef, stats)
     return fits, stats
-
-
-def stars(p):
-    return "^{***}" if p < 0.01 else "^{**}" if p < 0.05 else "^{*}" if p < 0.1 else ""
-
-
-def write_ladder_tex(coef, stats):
-    names = list(SPECS)
-    L = ["\\begin{tabular}{l" + "c" * len(names) + "}", "\\toprule",
-         " & " + " & ".join(f"\\textbf{{{n.split(')')[0]})}}" for n in names) + " \\\\",
-         " & " + " & ".join(n.split(") ")[1] for n in names) + " \\\\", "\\midrule"]
-    for _, r in coef.iterrows():
-        if all(pd.isna(r.get(n)) for n in names):
-            continue  # category absent from the data (e.g. no 'certificate pending' listings)
-        cells, ses = [], []
-        for n in names:
-            if pd.notna(r.get(n)):
-                cells.append(f"${r[n]:.3f}{stars(r[n + '_p'])}$")
-                ses.append(f"\\footnotesize({r[n + '_se']:.3f})")
-            else:
-                cells.append("")
-                ses.append("")
-        L.append(r["variable"] + " & " + " & ".join(cells) + " \\\\")
-        L.append(" & " + " & ".join(ses) + " \\\\[-1pt]")
-    L.append("\\midrule")
-    L.append("District fixed effects & No & Yes & Yes & Yes \\\\")
-    L.append("Type $\\times$ city, type $\\times$ log area & No & No & No & Yes \\\\")
-    L.append("N & " + " & ".join(f"{int(v):,}" for v in stats["N"]) + " \\\\")
-    L.append("R$^2$ & " + " & ".join(f"{v:.3f}" for v in stats["R2"]) + " \\\\")
-    L.append("Adjusted R$^2$ & " + " & ".join(f"{v:.3f}" for v in stats["adj_R2"]) + " \\\\")
-    L.append("5-fold CV RMSE (log) & " + " & ".join(f"{v:.3f}" for v in stats["CV_RMSE_log"]) + " \\\\")
-    L += ["\\bottomrule", "\\end{tabular}"]
-    (TAB / "hedonic_ladder.tex").write_text("\n".join(L), encoding="utf-8")
 
 
 # --------------------------------------------------------------------------- xgboost

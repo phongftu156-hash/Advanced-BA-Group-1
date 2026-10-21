@@ -13,15 +13,14 @@ The platform has three engines, trained on public listings and open map data:
 
 | File | What it is |
 |---|---|
-| `report/main.pdf` | Final report (15 pages: executive summary on page 1, body to page 12, technical appendix pages 13 to 15) |
-| `report/main.tex` | Single self-contained source of the report (style, numbers, diagrams, tables and bibliography inlined) |
-| `report/slides/pitch.pdf`, `pitch.tex` | 15-slide pitch deck and its single-file source |
-| `report/response_to_feedback.pdf` | One-page response to the instructor feedback |
-| `report/vietnam_avm_dashboard.html` | Standalone dashboard: open by double-click; valuations run in the browser |
+| Final report (Word) | Maintained separately in Microsoft Word; not included in this repository |
+| Presentation (Canva) | Maintained separately in Canva; not included in this repository |
+| `dashboard/vietnam_avm_dashboard.html` | Standalone dashboard: open by double-click; valuations run in the browser |
 | `code/app.py` | Streamlit version of the dashboard |
 | `data/`, `result/` | Raw and processed data, figures, tables and trained models |
 
-The executive summary is page 1 of `report/main.pdf`.
+The analytical pipeline produces data, models, figures and result summaries for use in the Word report
+and Canva presentation. It does not build or update those documents automatically.
 
 ## Results summary
 
@@ -79,8 +78,7 @@ Advanced BA/
   result/figures/      PNG + PDF for every exhibit, interactive segments_map_*.html
   result/tables/       CSV tables behind every exhibit and number
   result/models/       trained models and lookups used by app.py and the HTML dashboard
-  report/              main.tex, main.pdf, response_to_feedback.pdf, vietnam_avm_dashboard.html
-  report/slides/       pitch.tex, pitch.pdf
+  dashboard/           vietnam_avm_dashboard.html (standalone browser dashboard)
 ```
 
 ## Recreate the environment (Windows)
@@ -90,23 +88,21 @@ py -3.12 -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 .venv\Scripts\python -m playwright install chromium   # dashboard screenshots and the HTML test
 ```
-LaTeX: MiKTeX with XeLaTeX (fonts TeX Gyre Pagella and Heros, loaded by file name).
 
 ## Rerun the pipeline
 
 ```
-.venv\Scripts\python code\run_all.py              # cleaning -> map features -> models -> exhibits -> dashboard -> PDFs
+.venv\Scripts\python code\run_all.py              # cleaning -> map features -> models -> exhibits -> dashboard
 .venv\Scripts\python code\run_all.py --rescrape   # also re-collect the listings (about 50 minutes)
-.venv\Scripts\python code\run_all.py --no-report  # stop after the models, tests and the app check
+.venv\Scripts\python code\run_all.py --no-exports # stop after the models, tests and the app check
 ```
 Collection is skipped when `data/raw/mogi_raw.csv` already holds 6,000 listings. Seeds are fixed at 42.
-`code/10_export_numbers.py` writes every number cited in the report into the macro block between
-`% BEGIN NUMBERS` and `% END NUMBERS` in `report/main.tex` and `report/slides/pitch.tex`
-(and into `result/tables/report_numbers.csv`). Compile the report with `xelatex main.tex` twice from `report/`.
+`code/10_export_numbers.py` writes formatted result summaries to `result/tables/report_numbers.csv`
+for the dashboard and for manual use in the Word report and Canva presentation.
 Intermediate files (parsed listings, logs, parity test data) are recreated in `data/` and `result/logs/` on a rerun.
 
 ## Open the dashboard
 
-- **Standalone:** double-click `report/vietnam_avm_dashboard.html`. Valuation, comparables and charts work offline;
+- **Standalone:** double-click `dashboard/vietnam_avm_dashboard.html`. Valuation, comparables and charts work offline;
   the map draws district polygons without internet and adds OpenStreetMap tiles when online.
 - **Streamlit:** `.venv\Scripts\python -m streamlit run code\app.py`

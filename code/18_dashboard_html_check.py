@@ -1,6 +1,6 @@
 """Headless test of the standalone HTML dashboard.
 
-Opens report/dashboard/vietnam_avm_dashboard.html with Playwright (Chromium), fills the form for three example
+Opens dashboard/vietnam_avm_dashboard.html with Playwright (Chromium), fills the form for three example
 properties, compares fair value, range, price gap, stale-risk score and comparables with the Python app logic,
 and saves screenshots at 1440 px and 390 px wide to result/figures/dashboard_html_*.png.
 Report: result/logs/dashboard_html_check.txt.
@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from config import FIG, ROOT  # noqa: E402
 
 exp = importlib.import_module("17_export_dashboard")
-HTML = ROOT / "report" / "vietnam_avm_dashboard.html"
+HTML = ROOT / "dashboard" / "vietnam_avm_dashboard.html"
 CASES = [
     {"name": "apartment_caugiay", "city": "Hà Nội", "district": "Quận Cầu Giấy", "type": "Căn hộ chung cư", "ask": 5.5},
     {"name": "alley_dongda", "city": "Hà Nội", "district": "Quận Đống Đa", "type": "Nhà hẻm/ngõ", "ask": 9.5},

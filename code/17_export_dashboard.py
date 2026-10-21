@@ -9,7 +9,7 @@ No model is re-trained. Steps:
    table, a slim listing table for comparables, simplified district polygons and metro lines.
 3. Parity: 500 random listings scored by the Python app logic and by the JS engine under node;
    max |diff| < 1e-4 on log price and on probability. Report: result/logs/js_parity.txt.
-4. Write report/vietnam_avm_dashboard.html (data and engine inlined; Leaflet from cdnjs).
+4. Write dashboard/vietnam_avm_dashboard.html (data and engine inlined; Leaflet from cdnjs).
 """
 import json
 import re
@@ -26,7 +26,7 @@ from config import CBD, MODELS, OSM, PROCESSED, ROOT, SEED, TAB, TYPE_EN, get_lo
 from features import add_log_dist, tree_matrix  # noqa: E402
 
 log = get_logger("17_export_dashboard")
-OUTDIR = ROOT / "report"
+OUTDIR = ROOT / "dashboard"
 OUTDIR.mkdir(parents=True, exist_ok=True)
 LOGS = ROOT / "result" / "logs"
 LOC_COLS = ["lat", "lon", "accessibility_index", "n_bus_stop_500m", "n_school_1000m", "n_market_1000m"] + \
@@ -235,7 +235,6 @@ def payload(df, avm, conf, stale, seg, lookup, scores, thr_mode):
     colors = pd.read_csv(TAB / "segment_colors.csv", index_col=0)["color"].to_dict()
     prof = pd.read_csv(TAB / "segment_profiles.csv", encoding="utf-8-sig")
     nums = pd.read_csv(TAB / "report_numbers.csv", index_col=0, encoding="utf-8-sig")["value"].to_dict()
-    clean = lambda v: re.sub(r"\\%|\{,\}|\$-\$", lambda m: {"\\%": "%", "{,}": ",", "$-$": "−"}[m.group(0)], str(v))
     segs = seg[["city", "district", "district_key", "segment", "n", "med_ppm2_mil", "med_age", "share_high_risk"]]
     geo, metro = geodata(seg)
     D = {
@@ -250,10 +249,10 @@ def payload(df, avm, conf, stale, seg, lookup, scores, thr_mode):
         "segments": json.loads(segs.to_json(orient="records", force_ascii=False)), "segColors": colors,
         "profiles": json.loads(prof.to_json(orient="records", force_ascii=False)),
         "geo": geo, "metro": metro, "cbd": {c: list(v) for c, v in CBD.items()},
-        "about": {"N": clean(nums["Nclean"]), "Nraw": clean(nums["Nraw"]), "date": clean(nums["scrapeDate"]),
-                  "poi": clean(nums["NpoiTotal"]), "ppe20": clean(nums["xgbPPEtwenty"]), "auc": clean(nums["xgbAUC"]),
-                  "lift": clean(nums["topDecileLift"]),
-                  "ppeType": {t: clean(nums["ppeTwenty" + m]) for t, m in (
+        "about": {"N": str(nums["Nclean"]), "Nraw": str(nums["Nraw"]), "date": str(nums["scrapeDate"]),
+                  "poi": str(nums["NpoiTotal"]), "ppe20": str(nums["xgbPPEtwenty"]), "auc": str(nums["xgbAUC"]),
+                  "lift": str(nums["topDecileLift"]),
+                  "ppeType": {t: str(nums["ppeTwenty" + m]) for t, m in (
                       ("Căn hộ chung cư", "Apartment"), ("Nhà hẻm/ngõ", "AlleyHouse"),
                       ("Nhà mặt tiền/phố", "StreetFrontHouse"), ("Biệt thự/liền kề", "VillaTerraced"),
                       ("Đất", "Land"))}},

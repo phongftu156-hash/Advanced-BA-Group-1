@@ -3,7 +3,7 @@
 Input : data/raw/mogi_raw.csv
 Output: data/processed/listings_clean.parquet (analysis-ready)
         result/tables/cleaning_waterfall.csv, listing_age_checks.csv,
-        sample_extract.tex, data_dictionary.csv
+        sample_extract.csv, data_dictionary.csv
 """
 import sys
 import time
@@ -272,18 +272,6 @@ def sample_extract(df):
     ex = ex[list(cols)].rename(columns=cols)
     ex.to_csv(TAB / "sample_extract.csv", index=False, encoding="utf-8-sig")
 
-    def esc(x):
-        return str(x).replace("&", "\\&").replace("%", "\\%").replace("_", "\\_")
-
-    lines = ["\\begin{tabular}{rlllrrrrll}", "\\toprule",
-             " & ".join(cols.values()).replace("m²", "m$^2$") + " \\\\", "\\midrule"]
-    for _, r in ex.iterrows():
-        lines.append(" & ".join([
-            f"{int(r['ID'])}", esc(r["City"]), esc(r["District (as listed)"]),
-            esc(r["Type (site label)"]), f"{r['Price (VND bn)']:.2f}", f"{r['Area (m²)']:.0f}",
-            f"{r['VND m/m²']:.1f}", f"{int(r['Beds'])}", esc(r["Legal"]), esc(r["Posted"])]) + " \\\\")
-    lines += ["\\bottomrule", "\\end{tabular}"]
-    (TAB / "sample_extract.tex").write_text("\n".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":

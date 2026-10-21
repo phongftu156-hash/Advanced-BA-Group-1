@@ -1,14 +1,14 @@
-"""Run the whole pipeline: python code/run_all.py [--rescrape] [--no-report]
+"""Run the whole pipeline: python code/run_all.py [--rescrape] [--no-exports]
 
 Scraping (01) is skipped when data/raw/mogi_raw.csv already holds the target sample
 (6,000 raw listings), unless --rescrape is passed.
 Steps after scraping always run: cleaning -> OSM features -> EDA -> Modules 1-3 ->
 cross-functional -> value -> numbers for the report -> tests -> app check -> report figures ->
-standalone HTML dashboard (with JS parity and browser tests) -> LaTeX compile -> text checks.
+standalone HTML dashboard (with JS parity and browser tests).
+The report is maintained in Word and the slide deck in Canva, outside this pipeline.
 """
 import argparse
 import csv
-import shutil
 import subprocess
 import sys
 import time
@@ -38,23 +38,11 @@ def scrape_needed():
     return n_rows < 6000
 
 
-def compile_tex(folder, main):
-    """xelatex -> bibtex -> xelatex -> xelatex (no latexmk: it needs Perl)."""
-    if not shutil.which("xelatex"):
-        print("xelatex not found: skipping PDF build")
-        return
-    for cmd in (["xelatex", "-interaction=nonstopmode", main], ["bibtex", Path(main).stem],
-                ["xelatex", "-interaction=nonstopmode", main], ["xelatex", "-interaction=nonstopmode", main]):
-        if cmd[0] == "bibtex" and not (folder / f"{Path(main).stem}.aux").read_text(
-                encoding="utf-8", errors="ignore").count("\\bibdata"):
-            continue
-        subprocess.run(cmd, cwd=folder, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--rescrape", action="store_true")
-    ap.add_argument("--no-report", action="store_true")
+    ap.add_argument("--no-exports", "--no-report", dest="no_exports", action="store_true",
+                    help="skip figure and dashboard exports (--no-report is a legacy alias)")
     a = ap.parse_args()
     code = ROOT / "code"
     if a.rescrape:
@@ -69,13 +57,10 @@ def main():
         run([PY, code / s])
     run([PY, "-m", "pytest", "-q", str(code / "tests")])
     run([PY, code / "12_dashboard_check.py"])
-    if not a.no_report:
+    if not a.no_exports:
         run([PY, code / "14_report_figures.py"])        # report versions of the map, waterfall and heatmap
         run([PY, code / "17_export_dashboard.py"])      # standalone HTML dashboard + JS parity test
         run([PY, code / "18_dashboard_html_check.py"])  # headless browser test of the HTML dashboard
-        compile_tex(ROOT / "report", "main.tex")
-        compile_tex(ROOT / "report" / "slides", "pitch.tex")
-        run([PY, code / "16_revision_checks.py"])
     print("\npipeline finished")
 
 

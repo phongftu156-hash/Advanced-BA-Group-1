@@ -14,7 +14,6 @@ FIG = RESULT / "figures"
 TAB = RESULT / "tables"
 MODELS = RESULT / "models"
 LOGS = RESULT / "logs"
-REPORT = ROOT / "report"
 for p in (OSM, PROCESSED, FIG, TAB, MODELS, LOGS):
     p.mkdir(parents=True, exist_ok=True)
 

@@ -1,6 +1,6 @@
 """Phase 4.0: short exploratory analysis and the data exhibits.
 
-Outputs: tables/descriptives_city_type.csv/.tex, tables/eda_correlations.csv,
+Outputs: tables/descriptives_city_type.csv, tables/eda_correlations.csv,
 figures/cleaning_waterfall, sample_size, ppm2_distribution, ppm2_vs_cbd, listing_age_hist.
 """
 import sys
@@ -35,25 +35,6 @@ def main():
     order = {t: i for i, t in enumerate(list(TYPE_EN.values()) + ["All types"])}
     d = d.sort_values(["city_en", "type_en"], key=lambda s: s.map(order) if s.name == "type_en" else s)
     d.to_csv(TAB / "descriptives_city_type.csv", index=False)
-    L = ["\\begin{tabular}{llrrrrrr}", "\\toprule",
-         "City & Type & N & \\multicolumn{1}{c}{Price} & \\multicolumn{1}{c}{Price/m$^2$} & "
-         "\\multicolumn{1}{c}{Area} & \\multicolumn{2}{c}{Median age (days)} \\\\",
-         " & & & (VND bn) & (VND m) & (m$^2$) & created & posted \\\\", "\\midrule"]
-    prev = None
-    for _, r in d.iterrows():
-        city = r["city_en"] if r["city_en"] != prev else ""
-        if prev is not None and r["city_en"] != prev:
-            L.append("\\midrule")
-        prev = r["city_en"]
-        bold = r["type_en"] == "All types"
-        cells = [city, r["type_en"], f"{r['N']:,}", f"{r['med_price_bn']:.1f}", f"{r['med_ppm2_mil']:.0f}",
-                 f"{r['med_area']:.0f}", f"{r['med_age_created']:.0f}", f"{r['med_age_posted']:.0f}"]
-        if bold:
-            cells = [c if i < 1 else f"\\textbf{{{c}}}" for i, c in enumerate(cells)]
-        L.append(" & ".join(cells) + " \\\\")
-    L += ["\\bottomrule", "\\end{tabular}"]
-    (TAB / "descriptives_city_type.tex").write_text("\n".join(L), encoding="utf-8")
-
     cor = []
     for city, g in df.groupby("city_en"):
         for v in ("dist_cbd_km", "dist_metro_km", "accessibility_index"):
