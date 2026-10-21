@@ -1,0 +1,13 @@
+city_en,type_en,N,med_price_bn,med_ppm2_mil,med_area,med_age_created,med_age_posted
+HCMC,Apartment,744,4.45,58.49260728452939,78.0,337.0,6.0
+HCMC,Alley house,718,6.995,117.24137931034483,60.0,143.0,3.0
+HCMC,Street-front house,429,35.0,284.69387755102036,120.0,439.0,0.0
+HCMC,Villa / terraced,316,46.75,218.746875,201.0,249.0,9.0
+HCMC,Land,423,9.0,82.8125,113.5,206.0,3.0
+HCMC,All types,2630,8.2,105.625,86.0,223.0,3.0
+Hanoi,Apartment,631,6.5,72.85714285714285,86.0,557.0,481.0
+Hanoi,Alley house,782,11.0,250.0,44.0,176.0,140.0
+Hanoi,Street-front house,500,23.0,328.5042735042735,59.5,249.0,117.0
+Hanoi,Villa / terraced,273,27.675,271.7391304347826,100.0,443.0,335.0
+Hanoi,Land,452,9.2,124.35233160621762,85.5,364.0,300.0
+Hanoi,All types,2638,11.0,196.25874125874125,70.0,330.0,203.0

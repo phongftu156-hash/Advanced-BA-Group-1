@@ -1,0 +1,15 @@
+﻿name,label,conservative,base,optimistic,unit,source
+brokers,Brokers using the tool,100.0,300.0,500.0,brokers,team assumption (pilot with 1 to 3 agencies)
+valuations,Valuations per broker per month,10.0,20.0,25.0,per month,team assumption
+hours_saved,Hours saved per valuation vs manual comparables,0.5,1.0,1.25,hours,team assumption
+broker_cost,Broker cost per hour,0.1,0.15,0.2,VND m/hour,team assumption
+applications,Mortgage applications pre-screened per year (partner bank),1000.0,3000.0,6000.0,per year,team assumption
+ppe10,Share of AVM estimates within ±10% (PPE10),0.2979127134724857,0.2979127134724857,0.2979127134724857,share,measured: result/tables/avm_metrics.csv
+fast_track,Share of PPE10 cases where the bank waives a full appraisal,0.3,0.5,0.7,share,team assumption
+appraisal_cost,Cost of a manual appraisal avoided,1.5,2.5,4.0,VND m,team assumption
+run_cost,"Annual run cost (3 FTE data team, cloud, data refresh)",3000.0,2200.0,1600.0,VND m/year,team assumption
+buyers,Buyer transactions guided by the tool per year,300.0,1000.0,2500.0,per year,team assumption
+share_above,Share of listings priced above the AVM 90% upper bound,0.04422930903568717,0.04422930903568717,0.04422930903568717,share,measured: result/models/avm_predictions.csv
+excess,Median asking-price excess over the upper bound (those listings),0.12253360427755654,0.12253360427755654,0.12253360427755654,share of price,measured: result/models/avm_predictions.csv
+pass_through,Share of that excess removed in negotiation,0.1,0.2,0.3,share,team assumption
+price_bn,Median asking price,9.6,9.6,9.6,VND bn,measured: data/processed/listings_model.parquet

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vietnam Real Estate AVM</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{--brand:#005AA0;--brand2:#0078C8;--accent:#C85000;--dark:#232323;--mid:#6E6E6E;--rule:#D2D2D2;--light:#F7F7F7;
+--green:#288C46;--metric:#F0F6FF;--amber:#D99A00;--red:#C0392B;
+--serif:"TeX Gyre Pagella","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+--sans:"TeX Gyre Heros","Helvetica Neue",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--dark);font-family:var(--serif);font-size:15px;line-height:1.45}
+header{background:var(--dark);color:#fff;padding:10px 16px}
+header .kick{font:600 11px var(--sans);letter-spacing:.06em;color:#CFCFCF;text-transform:uppercase}
+header h1{margin:2px 0 0;font:700 22px var(--sans)}
+header p{margin:2px 0 0;font:13px var(--sans);color:#9FC6EA}
+nav{display:flex;gap:4px;border-bottom:2px solid var(--brand);padding:0 16px;background:#fff;position:sticky;top:0;z-index:1000}
+nav button{font:600 13px var(--sans);border:0;background:none;padding:10px 12px;color:var(--mid);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+nav button.on{color:var(--brand);border-bottom-color:var(--brand)}
+main{max-width:1280px;margin:0 auto;padding:16px}
+.tab{display:none}.tab.on{display:block}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
+.grid>*,.two>*{min-width:0}
+.card{border:1px solid var(--rule);border-radius:3px;padding:14px;background:#fff}
+.card h2,.sec h2{font:700 13px var(--sans);text-transform:uppercase;letter-spacing:.04em;color:#fff;background:var(--brand);margin:-14px -14px 12px;padding:6px 10px}
+.sec h2{margin:18px 0 10px}
+h3{font:700 14px var(--sans);color:var(--brand);margin:16px 0 6px;border-bottom:1px solid var(--rule);padding-bottom:3px}
+label{display:block;font:600 12px var(--sans);color:var(--mid);margin:9px 0 3px}
+select,input{width:100%;font:14px var(--sans);padding:7px 8px;border:1px solid var(--rule);border-radius:3px;background:#fff;color:var(--dark)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hint{font:12px var(--sans);color:var(--mid);margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:var(--metric);border-left:4px solid var(--brand);padding:10px 12px;border-radius:2px}
+.kpi .l{font:600 11px var(--sans);color:var(--mid);text-transform:uppercase;letter-spacing:.04em}
+.kpi .v{font:700 24px var(--sans);color:var(--dark);margin-top:2px;white-space:nowrap}
+.kpi .s{font:12px var(--sans);color:var(--mid)}
+.kpi.acc{border-left-color:var(--accent);background:#FFF6EF}
+.light{display:inline-flex;align-items:center;gap:8px}
+.dot{width:16px;height:16px;border-radius:50%;display:inline-block}
+.note{font:13px var(--sans);color:var(--mid)}
+.box{border-left:3px solid var(--accent);background:#FFF8F2;padding:8px 12px;font-size:14px;margin:12px 0}
+table{border-collapse:collapse;width:100%;font:13px var(--sans)}
+th{text-align:left;border-bottom:1.5px solid var(--dark);padding:5px 6px;font-weight:700;white-space:nowrap}
+td{border-bottom:1px solid #EAEAEA;padding:5px 6px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto}
+.seg{display:inline-block;padding:1px 8px;border-radius:10px;color:#fff;font:600 12px var(--sans)}
+#map,#mapFallback{height:520px;border:1px solid var(--rule)}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font:12px var(--sans);margin:8px 0}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:14px;height:14px;display:inline-block;border-radius:2px}
+.cityTog{display:flex;gap:6px;margin-bottom:8px}
+.cityTog button{font:600 13px var(--sans);border:1px solid var(--brand);background:#fff;color:var(--brand);padding:5px 12px;border-radius:3px;cursor:pointer}
+.cityTog button.on{background:var(--brand);color:#fff}
+svg text{font-family:var(--sans)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+footer{font:12px var(--sans);color:var(--mid);border-top:1px solid var(--rule);padding:10px 16px;margin-top:20px}
+@media (max-width:900px){.grid,.two{grid-template-columns:1fr}.kpis{grid-template-columns:1fr}#map,#mapFallback{height:420px}
+ main{padding:12px 16px}.kpi .v{font-size:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="kick">Advanced Business Analytics · Prototype dashboard · October 2026</div>
+  <h1>Vietnam Real Estate AVM</h1>
+  <p>Fair value, stale-listing risk and district segments for Hanoi and Ho Chi Minh City</p>
+</header>
+<nav>
+  <button class="on" data-tab="val">Valuation</button>
+  <button data-tab="mkt">Market overview</button>
+  <button data-tab="about">About</button>
+</nav>
+<main>
+<section id="val" class="tab on">
+  <div class="grid">
+    <form class="card" id="f" onsubmit="return false">
+      <h2>Property</h2>
+      <label for="city">City</label><select id="city"></select>
+      <label for="district">District (as listed)</label><select id="district"></select>
+      <label for="ward">Ward</label><select id="ward"></select>
+      <label for="type">Property type</label><select id="type"></select>
+      <div class="row2">
+        <div><label for="area">Area (m²)</label><input id="area" type="number" min="10" max="5000" step="1"></div>
+        <div><label for="legal">Legal status</label><select id="legal"></select></div>
+      </div>
+      <div class="row2">
+        <div><label for="bedrooms">Bedrooms</label><input id="bedrooms" type="number" min="0" max="15" step="1"></div>
+        <div><label for="bathrooms">Bathrooms</label><input id="bathrooms" type="number" min="0" max="15" step="1"></div>
+      </div>
+      <div class="row2">
+        <div><label for="floors">Storeys</label><input id="floors" type="number" min="0" max="15" step="1"></div>
+        <div><label for="frontage">Frontage (m)</label><input id="frontage" type="number" min="0" max="100" step="0.5"></div>
+      </div>
+      <label for="road">Access road width (m)</label><input id="road" type="number" min="0" max="60" step="0.5">
+      <label for="ask">Asking price (VND bn, optional)</label><input id="ask" type="number" min="0" step="0.1" placeholder="e.g. 9.5">
+      <div class="hint">Fields start at the typical value for the type. A cleared storeys, frontage or road field is filled with that typical value and flagged as missing, as in model training.</div>
+    </form>
+    <div>
+      <div class="kpis">
+        <div class="kpi"><div class="l">Fair value</div><div class="v" id="o_fv">–</div><div class="s" id="o_ppm">&nbsp;</div></div>
+        <div class="kpi"><div class="l">90% range</div><div class="v" id="o_rng">–</div><div class="s">covers 9 in 10 unseen homes</div></div>
+        <div class="kpi acc"><div class="l">Asking price vs fair value</div><div class="v" id="o_gap">–</div><div class="s" id="o_gaps">enter an asking price</div></div>
+      </div>
+      <p class="note" id="o_loc"></p>
+      <h3>Stale-listing risk</h3>
+      <div id="o_stale" class="note">Enter an asking price to score the risk that the listing stays unsold.</div>
+      <h3>District segment</h3>
+      <div id="o_seg"></div>
+      <h3>Comparable listings</h3>
+      <div class="tw"><table id="o_comp"><thead><tr><th>District</th><th>Ward</th><th>Type</th><th class="n">Area m²</th><th class="n">Beds</th><th class="n">Price (VND bn)</th><th class="n">VND m/m²</th><th>Posted</th></tr></thead><tbody></tbody></table></div>
+      <div class="box">Estimates are references based on asking prices, not appraisals. Use the range, not the single number.</div>
+    </div>
+  </div>
+</section>
+
+<section id="mkt" class="tab">
+  <div class="sec"><h2>Segment map</h2></div>
+  <div class="cityTog"><button class="on" data-city="Hà Nội">Hanoi</button><button data-city="TP. Hồ Chí Minh">Ho Chi Minh City</button></div>
+  <div id="map"></div><div id="mapFallback" style="display:none"></div>
+  <div class="legend" id="legend"></div>
+  <div class="two">
+    <div>
+      <div class="sec"><h2>Price and speed by district</h2></div>
+      <div id="bubble"></div>
+      <p class="note">Each bubble is a district with at least 30 listings; size = listings. Districts to the left sell faster; upper left combines high prices with speed.</p>
+    </div>
+    <div>
+      <div class="sec"><h2>Segment profiles</h2></div>
+      <div class="tw"><table id="prof"><thead><tr><th>Segment</th><th class="n">Districts</th><th class="n">Listings</th><th class="n">VND m/m²</th><th class="n">Age (days)</th><th class="n">Houses, land</th><th class="n">Stale risk</th></tr></thead><tbody></tbody></table></div>
+      <p class="note">Medians across the districts of each segment. Stale risk = share of listings in the top quarter of risk scores. The four segments overlap; treat them as targeting groups, not hard borders.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="tab">
+  <div class="two">
+    <div>
+      <div class="sec"><h2>About this prototype</h2></div>
+      <p id="ab_data"></p>
+      <p>Three engines run in this page: the <b>Fair Value Engine</b> (gradient-boosting valuation with a 90% range), the <b>Stale Listing Radar</b> (risk that a listing stays unsold for more than <span id="ab_days"></span> days) and the <b>Market Map</b> (district segments). The models are the ones in the final report; they were exported, not re-trained, and every calculation runs in the browser.</p>
+      <p>Location features come from the median of listed homes in the chosen ward (the district when the ward has fewer than 3 listings).</p>
+      <div class="box">Values are asking-price references, not appraisals. They are not suitable for lending decisions without a desk review.</div>
+    </div>
+    <div>
+      <div class="sec"><h2>Accuracy by property type</h2></div>
+      <table id="ab_acc"><thead><tr><th>Type</th><th class="n">Within ±20% (PPE20)</th><th>Recommended use</th></tr></thead><tbody></tbody></table>
+      <p class="note">Measured on homes the models had not seen. Stale Listing Radar: AUC <span id="ab_auc"></span> (0.5 = coin flip); listings in its top 10% are stale <span id="ab_lift"></span> times as often as average.</p>
+    </div>
+  </div>
+</section>
+</main>
+<footer>Sources: mogi.vn sale listings; OpenStreetMap contributors (ODbL); district boundaries GADM 4.1. Team analysis. For course submission only.</footer>
+
+<script>/*__ENGINE__*/</script>
+<script>/*__DATA__*/</script>
+<script>
+(function(){
+"use strict";
+var D=window.AVM_DATA, E=new AVMEngine.Engine(D), T=D.listings, $=function(id){return document.getElementById(id)};
+var CITY_EN={"Hà Nội":"Hanoi","TP. Hồ Chí Minh":"Ho Chi Minh City"};
+var fmt=function(x,d){return x.toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d})};
+var segOf={}; D.segments.forEach(function(s){segOf[s.city+"|"+s.district]=s});
+
+/* tabs */
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){
+  document.querySelectorAll("nav button").forEach(function(x){x.classList.toggle("on",x===b)});
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.id===b.dataset.tab)});
+  if(b.dataset.tab==="mkt") drawMap();}});
+
+/* form */
+function opts(sel,list,lab){sel.innerHTML="";list.forEach(function(v){var o=document.createElement("option");o.value=v;o.textContent=lab?lab(v):v;sel.appendChild(o)})}
+var cities=Object.keys(D.cbd).sort();
+opts($("city"),cities);
+opts($("type"),Object.keys(D.typeEN),function(t){return D.typeEN[t]+" ("+t+")"});
+opts($("legal"),D.legal,function(l){return D.legalEN[l]+" ("+l+")"});
+function districtsOf(city){
+  var cnt={}; for(var i=0;i<T.city.length;i++) if(T.cities[T.city[i]]===city){var d=T.districts[T.district[i]];cnt[d]=(cnt[d]||0)+1}
+  return Object.keys(cnt).sort(function(a,b){return cnt[b]-cnt[a]||(a<b?-1:1)});}
+function fillDistricts(){opts($("district"),districtsOf($("city").value));fillWards()}
+function fillWards(){var L=D.loc[$("city").value+"|"+$("district").value];
+  opts($("ward"),[""].concat(L.wardList),function(w){return w===""?"Any ward (district median)":w})}
+function typeDefaults(){var m=D.typeMed[$("type").value];
+  $("area").value=m.area;$("bedrooms").value=m.bedrooms;$("bathrooms").value=m.bathrooms;
+  $("floors").value=m.floors;$("frontage").value=m.frontage;$("road").value=m.road}
+function num(id){var v=$(id).value;return v===""?null:parseFloat(v)}
+function inputs(){var t=$("type").value,m=D.typeMed[t];
+  var fl=num("floors"),fr=num("frontage"),rd=num("road");
+  return {city:$("city").value,district:$("district").value,ward:$("ward").value,type:t,
+    area:Math.max(num("area")||m.area,1),bedrooms:num("bedrooms")===null?m.bedrooms:num("bedrooms"),
+    bathrooms:num("bathrooms")===null?m.bathrooms:num("bathrooms"),
+    floors:fl===null?m.floors:fl,floors_missing:fl===null?1:0,
+    frontage:fr===null?m.frontage:fr,frontage_missing:fr===null?1:0,
+    road:rd===null?m.road:rd,road_missing:rd===null?1:0,
+    legal:$("legal").value,ask:num("ask")||0}}
+function lightColor(l){return l==="High"?"var(--red)":(l==="Medium"?"var(--amber)":"var(--green)")}
+function run(){
+  var inp=inputs(), r=E.value(inp);
+  $("o_fv").textContent=fmt(r.fv,2)+" bn VND";
+  $("o_ppm").textContent=fmt(r.fv*1000/inp.area,0)+" million VND per m²";
+  $("o_rng").textContent=fmt(r.lo,2)+" to "+fmt(r.hi,2)+" bn";
+  $("o_loc").textContent="Location features from the "+r.level+" median of listed homes"+(r.level==="district"&&inp.ward?" (fewer than 3 listings in this ward).":".");
+  if(inp.ask>0){
+    $("o_gap").textContent=(r.gap>=0?"+":"−")+fmt(Math.abs(r.gap)*100,1)+"%";
+    $("o_gaps").textContent=r.gap>0.15?"more than 15% above fair value: coach on price":(r.gap<-0.15?"well below fair value":"within ±15% of fair value");
+    $("o_stale").innerHTML='<span class="light"><span class="dot" style="background:'+lightColor(r.light)+'"></span><b>'+r.light+'</b> (score '+fmt(r.p,2)+')</span>'+
+      '<div class="hint">High = top quarter of risk scores; Medium = above the median. A ranking signal for prioritising broker effort, not a probability of sale. Stale listings track district speed and seller type more than the price gap.</div>';
+  } else {$("o_gap").textContent="–";$("o_gaps").textContent="enter an asking price";
+    $("o_stale").textContent="Enter an asking price to score the risk that the listing stays unsold for more than "+D.staleDays+" days."}
+  var s=segOf[inp.city+"|"+inp.district];
+  $("o_seg").innerHTML=s?'<span class="seg" style="background:'+D.segColors[s.segment]+'">'+s.segment+'</span> <span class="note">median '+fmt(s.med_ppm2_mil,0)+' million VND/m², median listing age '+fmt(s.med_age,0)+' days, '+s.n+' listings.</span>':
+    '<span class="note">Fewer than 30 listings in this district: no segment assigned.</span>';
+  var tb=$("o_comp").tBodies[0]; tb.innerHTML="";
+  E.comparables(inp,r.loc,5).forEach(function(i){var tr=document.createElement("tr");
+    tr.innerHTML="<td>"+T.districts[T.district[i]]+"</td><td>"+T.wardsDict[T.ward[i]]+"</td><td>"+D.typeEN[T.types[T.type[i]]]+
+      '</td><td class="n">'+fmt(T.area[i],1)+'</td><td class="n">'+T.bedrooms[i]+'</td><td class="n">'+fmt(T.price_bn[i],2)+
+      '</td><td class="n">'+fmt(T.ppm2[i],0)+"</td><td>"+T.month[i]+"</td>";tb.appendChild(tr)});
+  window.__lastResult=r;
+}
+$("city").onchange=function(){fillDistricts();run()};
+$("district").onchange=function(){fillWards();run()};
+$("type").onchange=function(){typeDefaults();run()};
+["ward","legal"].forEach(function(id){$(id).onchange=run});
+["area","bedrooms","bathrooms","floors","frontage","road","ask"].forEach(function(id){$(id).oninput=run});
+$("city").value="Hà Nội";fillDistricts();$("type").value="Nhà hẻm/ngõ";typeDefaults();run();
+window.AVM_UI={run:run,fillDistricts:fillDistricts,fillWards:fillWards,typeDefaults:typeDefaults};
+
+/* market overview: bubble chart (inline SVG, no chart library) */
+(function bubble(){
+  var W=560,H=380,m={l:52,r:12,t:12,b:42},rows=D.segments;
+  var xs=rows.map(function(r){return Math.log(r.med_age)}),ys=rows.map(function(r){return Math.log(r.med_ppm2_mil)});
+  var x0=Math.min.apply(0,xs)-0.15,x1=Math.max.apply(0,xs)+0.15,y0=Math.min.apply(0,ys)-0.2,y1=Math.max.apply(0,ys)+0.2;
+  var X=function(v){return m.l+(Math.log(v)-x0)/(x1-x0)*(W-m.l-m.r)},Y=function(v){return H-m.b-(Math.log(v)-y0)/(y1-y0)*(H-m.t-m.b)};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" aria-label="Districts by median listing age and median price">';
+  [100,200,500,1000].forEach(function(v){if(Math.log(v)>x0&&Math.log(v)<x1)s+='<line x1="'+X(v)+'" x2="'+X(v)+'" y1="'+m.t+'" y2="'+(H-m.b)+'" stroke="#EEE"/><text x="'+X(v)+'" y="'+(H-m.b+15)+'" font-size="11" text-anchor="middle" fill="#6E6E6E">'+v+'</text>'});
+  [50,100,200,500].forEach(function(v){if(Math.log(v)>y0&&Math.log(v)<y1)s+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="#EEE"/><text x="'+(m.l-6)+'" y="'+(Y(v)+4)+'" font-size="11" text-anchor="end" fill="#6E6E6E">'+v+'</text>'});
+  s+='<text x="'+((W+m.l)/2)+'" y="'+(H-6)+'" font-size="11" text-anchor="middle" fill="#232323">Median listing age, days (log scale; higher = slower)</text>';
+  s+='<text transform="translate(13,'+((H-m.b+m.t)/2)+') rotate(-90)" font-size="11" text-anchor="middle" fill="#232323">Median asking price, million VND/m² (log)</text>';
+  rows.slice().sort(function(a,b){return b.n-a.n}).forEach(function(r){
+    s+='<circle cx="'+X(r.med_age)+'" cy="'+Y(r.med_ppm2_mil)+'" r="'+(3+Math.sqrt(r.n)*0.55)+'" fill="'+D.segColors[r.segment]+'" fill-opacity=".75" stroke="#fff"><title>'+
+      r.district+" ("+CITY_EN[r.city]+"): "+fmt(r.med_ppm2_mil,0)+" million VND/m², "+fmt(r.med_age,0)+" days, "+r.n+" listings, "+r.segment+'</title></circle>'});
+  s+="</svg>";$("bubble").innerHTML=s;
+  var tb=$("prof").tBodies[0];D.profiles.forEach(function(p){var tr=document.createElement("tr");
+    tr.innerHTML='<td><span class="seg" style="background:'+D.segColors[p.segment]+'">'+p.segment+'</span></td><td class="n">'+p.n_districts+'</td><td class="n">'+fmt(p.n_listings,0)+
+      '</td><td class="n">'+fmt(p.med_ppm2_mil,0)+'</td><td class="n">'+fmt(p.med_age,0)+'</td><td class="n">'+fmt(p.share_house_land*100,0)+'%</td><td class="n">'+fmt(p.share_high_risk*100,0)+'%</td>';tb.appendChild(tr)});
+})();
+
+/* segment map: Leaflet with OSM tiles; polygons are drawn even if tiles fail; SVG fallback without Leaflet */
+var mapCity="Hà Nội",lmap=null,layers=[];
+var leg='';Object.keys(D.segColors).forEach(function(k){leg+='<span><i class="sw" style="background:'+D.segColors[k]+'"></i>'+k+'</span>'});
+leg+='<span><i class="sw" style="background:#E6E6E6"></i>Too few listings (&lt; 30)</span><span><i class="sw" style="background:#232323;height:3px"></i>Operating metro line</span>';
+$("legend").innerHTML=leg;
+document.querySelectorAll(".cityTog button").forEach(function(b){b.onclick=function(){mapCity=b.dataset.city;
+  document.querySelectorAll(".cityTog button").forEach(function(x){x.classList.toggle("on",x===b)});drawMap()}});
+function feats(){return D.geo.features.filter(function(f){return f.properties.city===mapCity})}
+function popup(p){return "<b>"+p.name+"</b><br>"+(p.segment?("Segment: "+p.segment+"<br>Listings: "+p.n+"<br>Median "+p.ppm2+" million VND/m²<br>Median listing age "+p.age+" days"):"Too few listings for a segment")}
+function drawMap(){
+  if(typeof L==="undefined"){return drawFallback()}
+  if(!lmap){lmap=L.map("map",{preferCanvas:true});
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:18,opacity:.55,attribution:"© OpenStreetMap contributors"}).addTo(lmap)}
+  layers.forEach(function(l){lmap.removeLayer(l)});layers=[];
+  var segF=feats().filter(function(f){return f.properties.segment});
+  lmap.fitBounds(L.geoJSON({type:"FeatureCollection",features:segF}).getBounds(),{padding:[10,10],animate:false});
+  var g=L.geoJSON({type:"FeatureCollection",features:feats()},{style:function(f){return{color:"#fff",weight:1,fillColor:f.properties.segment?D.segColors[f.properties.segment]:"#E6E6E6",fillOpacity:.72}},
+    onEachFeature:function(f,l){l.bindPopup(popup(f.properties))}}).addTo(lmap);layers.push(g);
+  var M=D.metro[mapCity];M.lines.forEach(function(c){layers.push(L.polyline(c,{color:"#232323",weight:3}).addTo(lmap))});
+  M.stations.forEach(function(c){layers.push(L.circleMarker(c,{radius:3.5,color:"#232323",weight:1.2,fillColor:"#fff",fillOpacity:1}).addTo(lmap))});
+  setTimeout(function(){lmap.invalidateSize()},50);
+}
+function drawFallback(){
+  $("map").style.display="none";var box=$("mapFallback");box.style.display="block";
+  var F=feats(),pts=[];F.forEach(function(f){if(f.properties.segment)walk(f.geometry.coordinates,function(c){pts.push(c)})});
+  function walk(c,fn){if(typeof c[0]==="number")fn(c);else c.forEach(function(x){walk(x,fn)})}
+  var lons=pts.map(function(p){return p[0]}),lats=pts.map(function(p){return p[1]});
+  var a=Math.min.apply(0,lons),b=Math.max.apply(0,lons),c=Math.min.apply(0,lats),d=Math.max.apply(0,lats),k=Math.cos(c*Math.PI/180);
+  var W=600,H=Math.round(W*(d-c)/((b-a)*k)),P=function(p){return ((p[0]-a)*k/((b-a)*k)*W).toFixed(1)+","+((d-p[1])/(d-c)*H).toFixed(1)};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">';
+  F.forEach(function(f){var g=f.geometry,polys=g.type==="Polygon"?[g.coordinates]:g.coordinates;
+    polys.forEach(function(poly){s+='<path d="'+poly.map(function(r){return "M"+r.map(P).join("L")+"Z"}).join("")+'" fill="'+(f.properties.segment?D.segColors[f.properties.segment]:"#E6E6E6")+'" stroke="#fff" stroke-width=".8"><title>'+f.properties.name+'</title></path>'})});
+  D.metro[mapCity].lines.forEach(function(l){s+='<polyline points="'+l.map(function(q){return P([q[1],q[0]])}).join(" ")+'" fill="none" stroke="#232323" stroke-width="2.5"/>'});
+  s+="</svg>";box.innerHTML=s;
+}
+
+/* about */
+var A=D.about;
+$("ab_data").textContent="Data: "+A.N+" clean sale listings ("+A.Nraw+" collected) from mogi.vn on "+A.date+", matched to "+A.poi+" OpenStreetMap points (metro, schools, hospitals, parks, markets, water). Overall, "+A.ppe20+" of estimates fall within ±20% of the asking price.";
+$("ab_days").textContent=D.staleDays;$("ab_auc").textContent=A.auc;$("ab_lift").textContent=A.lift;
+var use={"Căn hộ chung cư":"Broker pricing reference","Nhà hẻm/ngõ":"Broker pricing reference","Biệt thự/liền kề":"Reference plus desk review","Nhà mặt tiền/phố":"Desk review or manual appraisal","Đất":"Desk review or manual appraisal"};
+Object.keys(A.ppeType).forEach(function(t){var tr=document.createElement("tr");tr.innerHTML="<td>"+D.typeEN[t]+'</td><td class="n">'+A.ppeType[t]+"</td><td>"+use[t]+"</td>";$("ab_acc").tBodies[0].appendChild(tr)});
+})();
+</script>
+</body>
+</html>

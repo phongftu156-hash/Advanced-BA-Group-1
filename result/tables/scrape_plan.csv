@@ -1,0 +1,15 @@
+﻿city_slug,city,group,slug,alloc,supply,last_page,target_new,target_old,next_new,next_old,got_new,got_old,done,n_failed
+ha-noi,Hà Nội,Căn hộ chung cư,mua-can-ho-chung-cu,675,675,45,675,0,46,45,675,0,True,0
+ha-noi,Hà Nội,Nhà hẻm/ngõ,mua-nha-hem-ngo,818,4860,324,654,164,45,312,654,164,True,0
+ha-noi,Hà Nội,Nhà hẻm/ngõ,mua-duong-noi-bo,68,405,27,54,14,5,25,54,14,True,0
+ha-noi,Hà Nội,Nhà mặt tiền/phố,mua-nha-mat-tien-pho,554,2040,136,443,111,31,127,443,111,True,0
+ha-noi,Hà Nội,Biệt thự/liền kề,mua-nha-biet-thu-lien-ke,388,690,46,310,78,22,40,310,78,True,0
+ha-noi,Hà Nội,Đất,mua-dat-tho-cu,445,750,50,356,89,25,43,356,89,True,0
+ha-noi,Hà Nội,Đất,mua-dat-nen-du-an,53,90,6,42,11,4,4,42,11,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Căn hộ chung cư,mua-can-ho-chung-cu,900,5550,370,720,180,51,358,720,179,False,0
+ho-chi-minh,TP. Hồ Chí Minh,Nhà hẻm/ngõ,mua-nha-hem-ngo,716,6000,400,573,143,40,390,573,143,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Nhà hẻm/ngõ,mua-duong-noi-bo,84,705,47,67,17,6,45,67,17,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Nhà mặt tiền/phố,mua-nha-mat-tien-pho,500,6000,400,400,100,31,393,400,100,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Biệt thự/liền kề,mua-nha-biet-thu-lien-ke,350,1530,102,280,70,20,96,280,70,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Đất,mua-dat-tho-cu,412,3210,214,330,82,24,207,330,82,True,0
+ho-chi-minh,TP. Hồ Chí Minh,Đất,mua-dat-nen-du-an,38,300,20,30,8,4,18,30,8,True,0

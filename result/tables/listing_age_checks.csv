@@ -1,0 +1,6 @@
+﻿check,value,p_value,n
+"Spearman rho, listing ID vs posted date",0.443656365675633,5.629954101247811e-253,5268
+"Spearman rho, listing ID vs first photo upload date",0.9931236878879526,0.0,5247
+Share of listings whose posted date is >30 days after first photo upload,0.5858585858585859,,5247
+"Median listing age, posted date (days)",90.0,,5268
+"Median listing age, first photo upload (days)",297.0,,5247

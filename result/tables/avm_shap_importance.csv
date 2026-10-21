@@ -1,0 +1,44 @@
+,mean_abs_shap
+ln_area,0.38510218
+floors,0.14728677
+bathrooms,0.09366578
+frontage_m,0.09011
+ln_dist_cbd,0.0846581
+property_type_Căn hộ chung cư,0.06326498
+lon,0.06199369
+ln_dist_metro,0.05985177
+bedrooms,0.05855428
+road_width_m,0.05600175
+lat,0.05558743
+District (as listed),0.05075231
+property_type_Nhà mặt tiền/phố,0.041398846
+kw_business,0.040467214
+frontage_m_missing,0.038193155
+accessibility_index,0.03488781
+floors_missing,0.028716965
+property_type_Nhà hẻm/ngõ,0.028645955
+city_Hà Nội,0.02199072
+n_school_1000m,0.021399172
+ln_dist_park,0.019856013
+ln_dist_market,0.018077329
+ln_dist_hospital,0.017872268
+ln_dist_bus_stop,0.01545585
+ln_dist_school,0.014631801
+n_market_1000m,0.014510443
+ln_dist_university,0.013944024
+ln_dist_water,0.013901737
+kw_car_access,0.011665523
+kw_near_school,0.011578294
+n_bus_stop_500m,0.011034118
+property_type_Đất,0.00990915
+road_width_m_missing,0.008829614
+kw_corner,0.008316746
+city_TP. Hồ Chí Minh,0.007844132
+kw_lake_view,0.0040654032
+legal_group_Hợp đồng mua bán,0.0040636533
+legal_group_Sổ đỏ/Sổ hồng,0.0037368974
+kw_furnished,0.003555281
+legal_group_Khác/không rõ,0.00300919
+property_type_Biệt thự/liền kề,0.0028424505
+bathrooms_missing,0.0
+bedrooms_missing,0.0

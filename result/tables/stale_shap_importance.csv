@@ -1,0 +1,27 @@
+,mean_abs_shap
+district_liquidity,0.7586916
+broker_profile,0.5001414
+property_type_Nhà hẻm/ngõ,0.46400097
+ln_district_volume,0.35353312
+ln_desc_len,0.2690022
+n_images,0.26178557
+ln_area,0.23976679
+rel_price_district_type,0.2297334
+city_TP. Hồ Chí Minh,0.21214166
+accessibility_index,0.20871383
+bedrooms,0.17934008
+avm_resid,0.17892264
+rel_ppm2_district,0.17029531
+kw_owner,0.08365486
+legal_group_Sổ đỏ/Sổ hồng,0.080967546
+kw_furnished,0.06581798
+kw_business,0.048212282
+kw_car_access,0.046216186
+property_type_Căn hộ chung cư,0.043503553
+property_type_Nhà mặt tiền/phố,0.040717453
+kw_urgent,0.039983455
+legal_group_Khác/không rõ,0.03407582
+kw_near_school,0.015142443
+property_type_Đất,0.012244773
+kw_corner,0.009953932
+kw_lake_view,0.008393021

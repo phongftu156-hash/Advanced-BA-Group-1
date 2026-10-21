@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_dd1ac60b83cfe5eb26f498611bccdb72 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_dd1ac60b83cfe5eb26f498611bccdb72" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_dd1ac60b83cfe5eb26f498611bccdb72 = L.map(
+                "map_dd1ac60b83cfe5eb26f498611bccdb72",
+                {
+                    center: [21.019374147789563, 105.81802368],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e2a62b160cf1b5e632c573a10aa34752 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e2a62b160cf1b5e632c573a10aa34752.addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+            var circle_marker_61775f8d0d32be80901a7a1d28c07743 = L.circleMarker(
+                [21.00767230894043, 105.93813705499996],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.47213595499958, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_fa17cbb36f254a4dd0237eac1281bc99 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_d27dcc9515563aa6f14113ca24779c13 = $(`<div id="html_d27dcc9515563aa6f14113ca24779c13" style="width: 100.0%; height: 100.0%;"><b>Huyện Gia Lâm</b><br>Segment: Townhouse mid-market<br>Listings: 80<br>Median price: 87 million VND/m²<br>Median listing age: 395 days</div>`)[0];
+                popup_fa17cbb36f254a4dd0237eac1281bc99.setContent(html_d27dcc9515563aa6f14113ca24779c13);
+            
+        
+
+        circle_marker_61775f8d0d32be80901a7a1d28c07743.bindPopup(popup_fa17cbb36f254a4dd0237eac1281bc99)
+        ;
+
+        
+    
+    
+            var circle_marker_f880a2a2f1ccee3b9448fb66809cfd43 = L.circleMarker(
+                [21.0332922, 105.71676254],
+                {"bubblingMouseEvents": true, "color": "#7A4FA0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7A4FA0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.958039891549808, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_f6228d5bab787c454e0cf3668423cea4 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_94fd78cbcf8eaef09150e077ceaf62bc = $(`<div id="html_94fd78cbcf8eaef09150e077ceaf62bc" style="width: 100.0%; height: 100.0%;"><b>Huyện Hoài Đức</b><br>Segment: Peripheral growth<br>Listings: 35<br>Median price: 147 million VND/m²<br>Median listing age: 687 days</div>`)[0];
+                popup_f6228d5bab787c454e0cf3668423cea4.setContent(html_94fd78cbcf8eaef09150e077ceaf62bc);
+            
+        
+
+        circle_marker_f880a2a2f1ccee3b9448fb66809cfd43.bindPopup(popup_f6228d5bab787c454e0cf3668423cea4)
+        ;
+
+        
+    
+    
+            var circle_marker_a6b7b6764978cc904029362b9fcf7ce6 = L.circleMarker(
+                [20.94451523, 105.8319137420482],
+                {"bubblingMouseEvents": true, "color": "#7A4FA0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7A4FA0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.278719262151, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_28c83ecc1a07b5f998934122a5594082 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_6cc745d4b27b6c0b09686619a3e7e5f4 = $(`<div id="html_6cc745d4b27b6c0b09686619a3e7e5f4" style="width: 100.0%; height: 100.0%;"><b>Huyện Thanh Trì</b><br>Segment: Peripheral growth<br>Listings: 43<br>Median price: 184 million VND/m²<br>Median listing age: 284 days</div>`)[0];
+                popup_28c83ecc1a07b5f998934122a5594082.setContent(html_6cc745d4b27b6c0b09686619a3e7e5f4);
+            
+        
+
+        circle_marker_a6b7b6764978cc904029362b9fcf7ce6.bindPopup(popup_28c83ecc1a07b5f998934122a5594082)
+        ;
+
+        
+    
+    
+            var circle_marker_45c7d1f422ceab31682537042e7393cb = L.circleMarker(
+                [21.017668725, 105.54013442500002],
+                {"bubblingMouseEvents": true, "color": "#7A4FA0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7A4FA0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.201562118716424, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_8dec4c452acc1e4baa0f09590012894a = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_bb80c099f229eae073d849f3fb450ea2 = $(`<div id="html_bb80c099f229eae073d849f3fb450ea2" style="width: 100.0%; height: 100.0%;"><b>Huyện Thạch Thất</b><br>Segment: Peripheral growth<br>Listings: 41<br>Median price: 29 million VND/m²<br>Median listing age: 273 days</div>`)[0];
+                popup_8dec4c452acc1e4baa0f09590012894a.setContent(html_bb80c099f229eae073d849f3fb450ea2);
+            
+        
+
+        circle_marker_45c7d1f422ceab31682537042e7393cb.bindPopup(popup_8dec4c452acc1e4baa0f09590012894a)
+        ;
+
+        
+    
+    
+            var circle_marker_40ab0dc5e487a96727429aafc6c171c0 = L.circleMarker(
+                [21.120768847496155, 105.86954879814454],
+                {"bubblingMouseEvents": true, "color": "#7A4FA0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#7A4FA0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.738612787525831, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_9537629a231ecf773b3221d037a9271b = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_5108c770520c239944f289fc2362c26c = $(`<div id="html_5108c770520c239944f289fc2362c26c" style="width: 100.0%; height: 100.0%;"><b>Huyện Đông Anh</b><br>Segment: Peripheral growth<br>Listings: 30<br>Median price: 90 million VND/m²<br>Median listing age: 261 days</div>`)[0];
+                popup_9537629a231ecf773b3221d037a9271b.setContent(html_5108c770520c239944f289fc2362c26c);
+            
+        
+
+        circle_marker_40ab0dc5e487a96727429aafc6c171c0.bindPopup(popup_9537629a231ecf773b3221d037a9271b)
+        ;
+
+        
+    
+    
+            var circle_marker_1f17300f9d75b734672b82f9e6449f8d = L.circleMarker(
+                [21.035271645, 105.81802368],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.652067347825035, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_0effb8fd56c78cea2c46636f1b2f535b = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_0d87b17c99b1cfb7033f732bd52082f7 = $(`<div id="html_0d87b17c99b1cfb7033f732bd52082f7" style="width: 100.0%; height: 100.0%;"><b>Quận Ba Đình</b><br>Segment: Townhouse mid-market<br>Listings: 177<br>Median price: 258 million VND/m²<br>Median listing age: 299 days</div>`)[0];
+                popup_0effb8fd56c78cea2c46636f1b2f535b.setContent(html_0d87b17c99b1cfb7033f732bd52082f7);
+            
+        
+
+        circle_marker_1f17300f9d75b734672b82f9e6449f8d.bindPopup(popup_0effb8fd56c78cea2c46636f1b2f535b)
+        ;
+
+        
+    
+    
+            var circle_marker_fbf3d88aa088d6de59609ea16df7a8f2 = L.circleMarker(
+                [21.07397079467773, 105.78419494628906],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.84767985741633, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_353ac4b3f2da9605caa631d6364652ee = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_60d2bd8b4abc50d6f618604019a64814 = $(`<div id="html_60d2bd8b4abc50d6f618604019a64814" style="width: 100.0%; height: 100.0%;"><b>Quận Bắc Từ Liêm</b><br>Segment: Apartment mid-market<br>Listings: 94<br>Median price: 175 million VND/m²<br>Median listing age: 395 days</div>`)[0];
+                popup_353ac4b3f2da9605caa631d6364652ee.setContent(html_60d2bd8b4abc50d6f618604019a64814);
+            
+        
+
+        circle_marker_fbf3d88aa088d6de59609ea16df7a8f2.bindPopup(popup_353ac4b3f2da9605caa631d6364652ee)
+        ;
+
+        
+    
+    
+            var circle_marker_90d73bb33da21c057bb8aabc94b2e0ff = L.circleMarker(
+                [21.022880555, 105.79318618499995],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.394147114027968, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_9b2efa526da949952f1af5921d17168a = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_08f6492b9334bc8c9e8ca10c98996e1f = $(`<div id="html_08f6492b9334bc8c9e8ca10c98996e1f" style="width: 100.0%; height: 100.0%;"><b>Quận Cầu Giấy</b><br>Segment: Apartment mid-market<br>Listings: 353<br>Median price: 111 million VND/m²<br>Median listing age: 564 days</div>`)[0];
+                popup_9b2efa526da949952f1af5921d17168a.setContent(html_08f6492b9334bc8c9e8ca10c98996e1f);
+            
+        
+
+        circle_marker_90d73bb33da21c057bb8aabc94b2e0ff.bindPopup(popup_9b2efa526da949952f1af5921d17168a)
+        ;
+
+        
+    
+    
+            var circle_marker_05838a08ed8a36ba9891acb1c2a66675 = L.circleMarker(
+                [21.000292775, 105.85211944499996],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.426149773176359, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_7815301c688a2e16cdbbab762525b9bf = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_9540f75853a6df7f4b3ab6405f004557 = $(`<div id="html_9540f75853a6df7f4b3ab6405f004557" style="width: 100.0%; height: 100.0%;"><b>Quận Hai Bà Trưng</b><br>Segment: Townhouse mid-market<br>Listings: 284<br>Median price: 300 million VND/m²<br>Median listing age: 192 days</div>`)[0];
+                popup_7815301c688a2e16cdbbab762525b9bf.setContent(html_9540f75853a6df7f4b3ab6405f004557);
+            
+        
+
+        circle_marker_05838a08ed8a36ba9891acb1c2a66675.bindPopup(popup_7815301c688a2e16cdbbab762525b9bf)
+        ;
+
+        
+    
+    
+            var circle_marker_987cfce0f80d84e3759df32444a89d3d = L.circleMarker(
+                [21.03254795, 105.84916305499996],
+                {"bubblingMouseEvents": true, "color": "#005AA0", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#005AA0", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.958039891549808, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_ce4df8327a285e2c4728c76ffd95a52f = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_3cadc3e15144c8bb5888d8a90cb19b74 = $(`<div id="html_3cadc3e15144c8bb5888d8a90cb19b74" style="width: 100.0%; height: 100.0%;"><b>Quận Hoàn Kiếm</b><br>Segment: Prime core<br>Listings: 35<br>Median price: 452 million VND/m²<br>Median listing age: 328 days</div>`)[0];
+                popup_ce4df8327a285e2c4728c76ffd95a52f.setContent(html_3cadc3e15144c8bb5888d8a90cb19b74);
+            
+        
+
+        circle_marker_987cfce0f80d84e3759df32444a89d3d.bindPopup(popup_ce4df8327a285e2c4728c76ffd95a52f)
+        ;
+
+        
+    
+    
+            var circle_marker_fb6730838c574b55b4a909f4fe1ddde2 = L.circleMarker(
+                [20.97545147, 105.84504699707033],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.365459931328118, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_43447149bcde8da421a53e33d5a50604 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_91aa521c549d6aeeb4f0d66191e44a2c = $(`<div id="html_91aa521c549d6aeeb4f0d66191e44a2c" style="width: 100.0%; height: 100.0%;"><b>Quận Hoàng Mai</b><br>Segment: Apartment mid-market<br>Listings: 217<br>Median price: 222 million VND/m²<br>Median listing age: 283 days</div>`)[0];
+                popup_43447149bcde8da421a53e33d5a50604.setContent(html_91aa521c549d6aeeb4f0d66191e44a2c);
+            
+        
+
+        circle_marker_fb6730838c574b55b4a909f4fe1ddde2.bindPopup(popup_43447149bcde8da421a53e33d5a50604)
+        ;
+
+        
+    
+    
+            var circle_marker_5519d35be2c0612dac285327093cb856 = L.circleMarker(
+                [20.97471046447754, 105.77194977],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.766281297335398, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_ed0e7f9ef0951484261f108a6c14e70b = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f7a02b62fae0a65e19bff393ec1f3538 = $(`<div id="html_f7a02b62fae0a65e19bff393ec1f3538" style="width: 100.0%; height: 100.0%;"><b>Quận Hà Đông</b><br>Segment: Apartment mid-market<br>Listings: 133<br>Median price: 200 million VND/m²<br>Median listing age: 364 days</div>`)[0];
+                popup_ed0e7f9ef0951484261f108a6c14e70b.setContent(html_f7a02b62fae0a65e19bff393ec1f3538);
+            
+        
+
+        circle_marker_5519d35be2c0612dac285327093cb856.bindPopup(popup_ed0e7f9ef0951484261f108a6c14e70b)
+        ;
+
+        
+    
+    
+            var circle_marker_07c61dc5d131e297b7583ecf8624f201 = L.circleMarker(
+                [21.04165554, 105.89817046999995],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.069178573608527, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_e4c84a0e5b17c1fd3455069ddfd8972f = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_956bf91860b392cdfb7c6180222b79da = $(`<div id="html_956bf91860b392cdfb7c6180222b79da" style="width: 100.0%; height: 100.0%;"><b>Quận Long Biên</b><br>Segment: Townhouse mid-market<br>Listings: 329<br>Median price: 190 million VND/m²<br>Median listing age: 395 days</div>`)[0];
+                popup_e4c84a0e5b17c1fd3455069ddfd8972f.setContent(html_956bf91860b392cdfb7c6180222b79da);
+            
+        
+
+        circle_marker_07c61dc5d131e297b7583ecf8624f201.bindPopup(popup_e4c84a0e5b17c1fd3455069ddfd8972f)
+        ;
+
+        
+    
+    
+            var circle_marker_4e6c2da0dc31f695bf147fe8f6a1e4fc = L.circleMarker(
+                [21.019374147789563, 105.77463531499995],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.819090848492927, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_716aae3e82def136f1977ff3a9bd0936 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_f976224a220180bc3be5f0541708a682 = $(`<div id="html_f976224a220180bc3be5f0541708a682" style="width: 100.0%; height: 100.0%;"><b>Quận Nam Từ Liêm</b><br>Segment: Apartment mid-market<br>Listings: 186<br>Median price: 107 million VND/m²<br>Median listing age: 436 days</div>`)[0];
+                popup_716aae3e82def136f1977ff3a9bd0936.setContent(html_f976224a220180bc3be5f0541708a682);
+            
+        
+
+        circle_marker_4e6c2da0dc31f695bf147fe8f6a1e4fc.bindPopup(popup_716aae3e82def136f1977ff3a9bd0936)
+        ;
+
+        
+    
+    
+            var circle_marker_529c55ec0db6341564c6325b5d1221bc = L.circleMarker(
+                [20.99784565, 105.80577468499996],
+                {"bubblingMouseEvents": true, "color": "#C85000", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#C85000", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.837397165588673, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_7c079e3a18172c92eea72ba1fb3b5966 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_155b6fe31678ef0a9c07a13ae4db0d2d = $(`<div id="html_155b6fe31678ef0a9c07a13ae4db0d2d" style="width: 100.0%; height: 100.0%;"><b>Quận Thanh Xuân</b><br>Segment: Apartment mid-market<br>Listings: 187<br>Median price: 134 million VND/m²<br>Median listing age: 424 days</div>`)[0];
+                popup_7c079e3a18172c92eea72ba1fb3b5966.setContent(html_155b6fe31678ef0a9c07a13ae4db0d2d);
+            
+        
+
+        circle_marker_529c55ec0db6341564c6325b5d1221bc.bindPopup(popup_7c079e3a18172c92eea72ba1fb3b5966)
+        ;
+
+        
+    
+    
+            var circle_marker_b873c6b7d3c6657d37607a67b1d58acd = L.circleMarker(
+                [21.06072903, 105.81381607000004],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.123475382979798, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_5b9ed3f4c13574cba85f7073d1c1df9c = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_dbf6f6f18fd494a87eb661d98ce770c5 = $(`<div id="html_dbf6f6f18fd494a87eb661d98ce770c5" style="width: 100.0%; height: 100.0%;"><b>Quận Tây Hồ</b><br>Segment: Townhouse mid-market<br>Listings: 105<br>Median price: 225 million VND/m²<br>Median listing age: 364 days</div>`)[0];
+                popup_5b9ed3f4c13574cba85f7073d1c1df9c.setContent(html_dbf6f6f18fd494a87eb661d98ce770c5);
+            
+        
+
+        circle_marker_b873c6b7d3c6657d37607a67b1d58acd.bindPopup(popup_5b9ed3f4c13574cba85f7073d1c1df9c)
+        ;
+
+        
+    
+    
+            var circle_marker_431fd27b49509ce23d411521873173e8 = L.circleMarker(
+                [21.017930985, 105.82793807999995],
+                {"bubblingMouseEvents": true, "color": "#288C46", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#288C46", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.713624310270756, "stroke": true, "weight": 3}
+            ).addTo(map_dd1ac60b83cfe5eb26f498611bccdb72);
+        
+    
+        var popup_d38cbcf3018680e63d41829dd1997e46 = L.popup({
+  "maxWidth": 260,
+});
+
+        
+            
+                var html_198e765aa6052a00dafde4c02413a8b4 = $(`<div id="html_198e765aa6052a00dafde4c02413a8b4" style="width: 100.0%; height: 100.0%;"><b>Quận Đống Đa</b><br>Segment: Townhouse mid-market<br>Listings: 238<br>Median price: 269 million VND/m²<br>Median listing age: 259 days</div>`)[0];
+                popup_d38cbcf3018680e63d41829dd1997e46.setContent(html_198e765aa6052a00dafde4c02413a8b4);
+            
+        
+
+        circle_marker_431fd27b49509ce23d411521873173e8.bindPopup(popup_d38cbcf3018680e63d41829dd1997e46)
+        ;
+
+        
+    
+</script>
+</html>

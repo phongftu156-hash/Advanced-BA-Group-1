@@ -1,0 +1,13 @@
+﻿step,n_remaining,n_dropped
+Raw listings scraped (with detail page),6000,0
+Remove repeated listing IDs,6000,0
+Remove negotiable or unparseable price,6000,0
+Remove missing or zero area,6000,0
+Remove unknown district,6000,0
+Remove area outside type bounds,5868,132
+Remove bedroom count above 15,5746,122
+Remove rental listings posted as sales,5722,24
+Remove implausible price (total < VND 300 m or price/m2 below type floor),5608,114
+Remove price per m2 outside 1st to 99th percentile (city x type),5487,121
+Remove near-duplicate postings (keep earliest),5268,219
+Remove listings without valid coordinates,5268,0

@@ -1,0 +1,49 @@
+﻿field,type,description,source,pct_missing
+listing_id,int64,Site listing ID (from URL),mogi.vn detail page,0.0
+url,str,Listing URL,mogi.vn detail page,0.0
+city,str,"City (Hà Nội, TP. Hồ Chí Minh)",mogi.vn detail page,0.0
+district,str,District as listed on the site (pre-2025 names),mogi.vn detail page,0.0
+ward,str,Ward as listed on the site,mogi.vn detail page,0.0
+street,str,Street as listed,mogi.vn detail page,0.0
+property_type,str,Property group used for quotas and models,mogi.vn detail page,0.0
+subcategory,str,mogi.vn search category slug,mogi.vn detail page,0.0
+land_subtype,str,Đất thổ cư or Đất nền dự án (land only),mogi.vn detail page,83.4
+price_vnd,float64,"Asking price, VND",mogi.vn detail page,0.0
+price_bn,float64,"Asking price, VND billion",derived (team),0.0
+area_m2,float64,"Area, m2: usable area (apartments), land area (other types)",mogi.vn detail page,0.0
+price_per_m2,float64,"Asking price per m2, VND",derived (team),0.0
+ppm2_mil,float64,"Asking price per m2, VND million",derived (team),0.0
+ln_price,float64,Log asking price,derived (team),0.0
+ln_area,float64,Log area,derived (team),0.0
+ln_ppm2,float64,Log price per m2,derived (team),0.0
+bedrooms,int64,Bedrooms (imputed: type median),mogi.vn detail page,0.0
+bathrooms,int64,Bathrooms (imputed: type median),mogi.vn detail page,0.0
+floors,float64,Storeys (houses; from text),mogi.vn text (regex),53.7
+frontage_m,float64,"Frontage / plot width, m (plot dimensions, else text)",mogi.vn detail page,29.3
+depth_m,float64,"Plot depth, m (plot dimensions)",mogi.vn detail page,30.7
+road_width_m,float64,"Width of access road or alley, m (text)",mogi.vn text (regex),87.3
+legal_status,str,"Legal document (Sổ đỏ, Sổ hồng, HĐMB, chờ sổ, khác)",mogi.vn detail page,0.0
+legal_group,str,Legal status grouped for modelling,derived (team),0.0
+project_name,str,Project name mentioned in title (regex),mogi.vn text (regex),0.0
+has_project,int64,1 if a project name is mentioned,derived (team),0.0
+posted_date,str,Posting date shown on the site (refreshed on re-post),mogi.vn detail page,0.0
+img_first_date,str,Earliest photo upload date in image URLs (creation proxy),mogi.vn detail page,0.4
+listing_age_days,int64,"Scrape date minus posted date, days",derived (team),0.0
+age_created_days,float64,"Scrape date minus first photo upload date, days",derived (team),0.4
+age_id_days,float64,Listing age implied by listing ID (isotonic fit on photo dates),derived (team),0.0
+seller_type,str,broker_profile = registered broker page; no_profile = plain account,mogi.vn detail page,0.0
+broker_profile,int64,1 if seller has a registered broker profile,derived (team),0.0
+agent_tenure_months,float64,Months since the poster account joined,mogi.vn detail page,0.6
+n_images,float64,Number of photos,mogi.vn detail page,0.0
+description_len,int64,"Description length, characters",derived (team),0.0
+kw_car_access,int64,"Text mentions car access (ô tô, xe hơi)",mogi.vn text (regex),0.0
+kw_corner,int64,"Text mentions corner lot (góc, 2 mặt tiền)",mogi.vn text (regex),0.0
+kw_business,int64,"Text mentions business use (kinh doanh, cho thuê)",mogi.vn text (regex),0.0
+kw_lake_view,int64,Text mentions lake or river view,mogi.vn text (regex),0.0
+kw_near_school,int64,Text mentions nearby school,mogi.vn text (regex),0.0
+kw_owner,int64,Text says owner-listed (chính chủ),mogi.vn text (regex),0.0
+kw_urgent,int64,"Text signals urgency or price cut (bán gấp, cắt lỗ)",mogi.vn text (regex),0.0
+kw_furnished,int64,Text mentions full furniture,mogi.vn text (regex),0.0
+lat,float64,Latitude (site map embed; Nominatim fallback),mogi.vn detail page,0.0
+lon,float64,Longitude (site map embed; Nominatim fallback),mogi.vn detail page,0.0
+geo_precision,str,"point (site map pin), ward_centroid (site pin shared by 3+ streets), ward/district (Nominatim)",derived (team),0.0

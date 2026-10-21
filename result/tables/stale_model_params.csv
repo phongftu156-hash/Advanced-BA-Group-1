@@ -1,0 +1,2 @@
+threshold_days,positive_share,xgb_threshold,logit_C,scale_pos_weight,max_depth,learning_rate,subsample,colsample_bytree,min_child_weight,reg_lambda,gamma,n_estimators
+180,0.6528094153378892,0.38213062286376953,0.01,0.5318066157760815,6,0.02,0.8785281500310944,0.6676937653444184,1.0,0.5672574689741159,0.1,1115
