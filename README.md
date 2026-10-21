@@ -16,6 +16,7 @@ The platform has three engines, trained on public listings and open map data:
 | [Final report PDF](report/%5BABA%5D%20Final%20Report%20Group%201.pdf) | Report authored in Microsoft Word and exported as PDF |
 | [Presentation PDF](report/Slide%20Group%201.pptx.pdf) | Slide deck authored in Canva and exported as PDF |
 | [Executive summary](report/Executive_Summary_Report_Group1.docx) | Executive summary in editable Microsoft Word format |
+| [Prototype demo video](demo/Demo%20prototype.mp4) | Video demonstration of the prototype dashboard |
 | `dashboard/vietnam_avm_dashboard.html` | Standalone dashboard: open by double-click; valuations run in the browser |
 | `code/app.py` | Streamlit version of the dashboard |
 | `data/`, `result/` | Raw and processed data, figures, tables and trained models |
@@ -81,6 +82,7 @@ Advanced BA/
   result/tables/       CSV tables behind every exhibit and number
   result/models/       trained models and lookups used by app.py and the HTML dashboard
   dashboard/           vietnam_avm_dashboard.html (standalone browser dashboard)
+  demo/                Demo prototype.mp4 (prototype demonstration video)
   report/              final report PDF, presentation PDF and Executive_Summary_Report_Group1.docx
 ```
 
