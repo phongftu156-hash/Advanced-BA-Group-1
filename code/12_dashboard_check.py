@@ -7,6 +7,7 @@ matplotlib mock-up labelled as such is saved instead.
 """
 import subprocess
 import sys
+import shutil
 import time
 from pathlib import Path
 
@@ -40,7 +41,7 @@ def main():
             try:
                 from playwright.sync_api import sync_playwright
                 with sync_playwright() as p:
-                    b = p.chromium.launch()
+                    b = p.chromium.launch(executable_path=shutil.which("chromium") or shutil.which("chromium-browser"))
                     # tall viewport so the whole page renders without inner scrolling; scale 2.67 for print
                     pg = b.new_page(viewport={"width": 1200, "height": 2000}, device_scale_factor=2.67)
                     pg.goto(f"http://localhost:{PORT}", wait_until="networkidle")
@@ -75,7 +76,7 @@ def main():
         print("  ", l)
     if not shot:
         mockup()
-    return ok and not errors
+    return ok and not errors and shot
 
 
 def compose(full, s=2.67):

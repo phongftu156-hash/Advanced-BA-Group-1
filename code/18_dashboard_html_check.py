@@ -1,12 +1,17 @@
 """Headless test of the standalone HTML dashboard.
 
-Opens dashboard/vietnam_avm_dashboard.html with Playwright (Chromium), fills the form for three example
+Serves dashboard/vietnam_avm_dashboard.html on loopback for Playwright (Chromium), fills three example
 properties, compares fair value, range, price gap, stale-risk score and comparables with the Python app logic,
 and saves screenshots at 1440 px and 390 px wide to result/figures/dashboard_html_*.png.
 Report: result/logs/dashboard_html_check.txt.
 """
 import importlib
+import threading
+from contextlib import contextmanager
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import sys
+import shutil
 from pathlib import Path
 
 import numpy as np
@@ -23,6 +28,22 @@ CASES = [
 ]
 
 
+@contextmanager
+def dashboard_server():
+    """Serve locally so browser file-access policies do not block the dashboard test."""
+    handler = partial(SimpleHTTPRequestHandler, directory=str(HTML.parent))
+    server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    server.daemon_threads = True
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    try:
+        yield f"http://127.0.0.1:{server.server_port}/{HTML.name}"
+    finally:
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=5)
+
+
 def main():
     from playwright.sync_api import sync_playwright
     df, avm, conf, stale, seg, lookup, scores = exp.load()
@@ -31,12 +52,12 @@ def main():
     lines, ok_all = ["Standalone HTML dashboard check", f"file: {HTML.relative_to(ROOT)} "
                      f"({HTML.stat().st_size / 1e6:.1f} MB)", ""], True
     errors = []
-    with sync_playwright() as p:
-        b = p.chromium.launch()
+    with dashboard_server() as url, sync_playwright() as p:
+        b = p.chromium.launch(executable_path=shutil.which("chromium") or shutil.which("chromium-browser"))
         for width, height, tag in ((1440, 1000, "desktop"), (390, 844, "phone")):
             pg = b.new_page(viewport={"width": width, "height": height}, device_scale_factor=2)
             pg.on("pageerror", lambda e: errors.append(str(e)))
-            pg.goto(HTML.as_uri(), wait_until="load")
+            pg.goto(url, wait_until="load")
             pg.wait_for_function("window.AVM_UI !== undefined", timeout=30000)
             for c in CASES:
                 pg.select_option("#city", c["city"])
@@ -87,8 +108,9 @@ def main():
     (ROOT / "result" / "logs" / "dashboard_html_check.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     _ = np
+    return bool(ok_all)
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    main()
+    sys.exit(0 if main() else 1)

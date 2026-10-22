@@ -88,6 +88,9 @@ Advanced BA/
 
 ## Recreate the environment (Windows)
 
+Install Python 3.12 and Node.js LTS first. `node` must be on PATH: the HTML export
+uses it to compare JavaScript predictions with Python on 500 listings. Check with `node --version`.
+
 ```
 py -3.12 -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
@@ -102,6 +105,19 @@ py -3.12 -m venv .venv
 .venv\Scripts\python code\run_all.py --no-exports # stop after the models, tests and the app check
 ```
 Collection is skipped when `data/raw/mogi_raw.csv` already holds 6,000 listings. Seeds are fixed at 42.
+The supplied `data/external/geocode_cache.csv` contains 31 successful ward/district lookups,
+recovered from the coordinates already saved for the 96 fallback listings in the submitted
+`listings_model.parquet`. Cleaning uses cached ward coordinates first, then cached district
+coordinates, before making any new Nominatim request. Together with the supplied OSM JSON
+files, this lets steps 02 and 03 rebuild the submitted 5,268-row dataset without map API calls.
+Keep the cache when downloading or sharing the project. New addresses may still require internet;
+a geocoding network failure stops cleaning rather than silently dropping affected listings.
+Successful new lookups are saved immediately; missing/error entries from older caches are retried.
+
+A complete rerun retrains the models and overwrites generated results and the HTML dashboard.
+Training can take a long time, and results may vary with the numerical environment despite fixed
+seeds. To view the submitted results, open the included dashboard without running the pipeline.
+
 `code/10_export_numbers.py` writes formatted result summaries to `result/tables/report_numbers.csv`
 for the dashboard and for manual use in the Word report and Canva presentation.
 Intermediate files (parsed listings, logs, parity test data) are recreated in `data/` and `result/logs/` on a rerun.

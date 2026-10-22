@@ -153,42 +153,67 @@ def main():
 
 
 def geocode_missing(df):
-    """Nominatim fallback (ward, then district level) with a persistent cache."""
+    """Use saved ward/district coordinates before requesting Nominatim.
+
+    The supplied cache preserves coordinates used by the submitted dataset.
+    Failed requests must not silently remove listings or poison that cache.
+    """
     from geopy.geocoders import Nominatim
     cache_f = EXTERNAL / "geocode_cache.csv"
     cache = pd.read_csv(cache_f, encoding="utf-8-sig") if cache_f.exists() else \
         pd.DataFrame(columns=["query", "lat", "lon"])
+    cache = cache.dropna(subset=["query", "lat", "lon"]).drop_duplicates("query", keep="last")
     known = {r.query: (r.lat, r.lon) for r in cache.itertuples()}
-    geo = Nominatim(user_agent="AdvancedBA-ResearchBot/1.0 (university course project)", timeout=20)
-    new = []
+    attempted = {}
+    geo = None
 
     def lookup(q):
+        nonlocal geo
         if q in known:
             return known[q]
+        if q in attempted:
+            return attempted[q]
+        if geo is None:
+            geo = Nominatim(user_agent="AdvancedBA-ResearchBot/1.0 (university course project)", timeout=20)
         time.sleep(1.1)
         try:
             res = geo.geocode(q)
-        except Exception as e:  # network trouble -> treat as not found, keep going
-            log.info(f"  geocode error {q}: {e}")
-            res = None
+        except Exception as e:
+            raise RuntimeError(
+                f"Geocoding failed for {q!r}. Stopping to avoid dropping listings and changing "
+                "the analysis sample. Check the network or restore data/external/geocode_cache.csv "
+                "from the repository; failed requests are not saved as missing coordinates."
+            ) from e
         val = (res.latitude, res.longitude) if res else (np.nan, np.nan)
-        known[q] = val
-        new.append({"query": q, "lat": val[0], "lon": val[1]})
+        attempted[q] = val
+        if res:
+            known[q] = val
+            # Checkpoint successful results, including when a later request fails.
+            saved = pd.DataFrame([{"query": k, "lat": v[0], "lon": v[1]} for k, v in known.items()])
+            tmp = cache_f.with_suffix(".tmp")
+            saved.to_csv(tmp, index=False, encoding="utf-8-sig")
+            tmp.replace(cache_f)
         return val
 
     for i in df.index[df["lat"].isna()]:
         r = df.loc[i]
         s, w, n, e = BBOX[r["city"]]
-        for level, q in (("ward", f"{r['ward']}, {r['district']}, {r['city']}, Vietnam"),
-                         ("district", f"{r['district']}, {r['city']}, Vietnam")):
-            if level == "ward" and not r["ward"]:
-                continue
+        queries = [("ward", f"{r['ward']}, {r['district']}, {r['city']}, Vietnam"),
+                   ("district", f"{r['district']}, {r['city']}, Vietnam")]
+        queries = [(level, q) for level, q in queries if level != "ward" or r["ward"]]
+        # Prefer any valid saved result (ward first, then district) over a new lookup.
+        cached = [(level, known[q]) for level, q in queries if q in known]
+        for level, (lat, lon) in cached:
+            if s <= lat <= n and w <= lon <= e:
+                df.loc[i, ["lat", "lon", "geo_precision"]] = [lat, lon, level]
+                break
+        if pd.notna(df.loc[i, "lat"]):
+            continue
+        for level, q in queries:
             lat, lon = lookup(q)
             if pd.notna(lat) and s <= lat <= n and w <= lon <= e:
                 df.loc[i, ["lat", "lon", "geo_precision"]] = [lat, lon, level]
                 break
-    if new:
-        pd.concat([cache, pd.DataFrame(new)]).to_csv(cache_f, index=False, encoding="utf-8-sig")
     log.info(f"geocoded by fallback: {df['geo_precision'].isin(['ward', 'district']).sum()}")
 
 
